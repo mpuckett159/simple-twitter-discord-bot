@@ -38,7 +38,7 @@ class Listener(tweepy.StreamListener):
 
     def on_status(self, status: tweepy.Status):
         print("Got a new message, sending on to Discord.")
-        send_discord_message(DISCORD_WEBHOOK_URL, status)
+        send_discord_message(DISCORD_WEBHOOK_URL, status.text)
 
     def on_error(self, status_code):
         print(f"There was an error: {status_code}")
