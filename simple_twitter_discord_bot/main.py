@@ -26,7 +26,7 @@ DISCORD_WEBHOOK_URL = _env(key="DISCORD_WEBHOOK_URL")
 
 
 def send_discord_message(url: str, message: str) -> None:
-    print("sending update message to Discord channel")
+    print("sending update message to Discord channel.")
     webhook = DiscordWebhook(url=url, content=message)
     webhook.execute()
 
