@@ -36,7 +36,7 @@ def format_discord_message(status: tweepy.Status) -> str:
     return dedent(
         f"""\
     NEW TWEET
-    From - @{status.user.screen_names}
+    From - @{status.author.screen_name}
     {status.text}
     [View Tweet](https://twitter.com/i/status/{status.id})
     """
