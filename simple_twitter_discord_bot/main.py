@@ -1,4 +1,5 @@
 import os
+from textwrap import dedent
 from typing import Any
 
 import tweepy
@@ -31,6 +32,16 @@ def send_discord_message(url: str, message: str) -> None:
     webhook.execute()
 
 
+def format_discord_message(status: tweepy.Status) -> str:
+    return dedent(
+        f"""\
+    NEW TWEET
+    {status.text}
+    [View Tweet](https://twitter.com/i/status/{status.id})
+    """
+    )
+
+
 class Listener(tweepy.StreamListener):
     """
     Listener implementation for when a status matching the track is received.
@@ -38,7 +49,8 @@ class Listener(tweepy.StreamListener):
 
     def on_status(self, status: tweepy.Status):
         print("Got a new message, sending on to Discord.")
-        send_discord_message(DISCORD_WEBHOOK_URL, status.text)
+        formatted_message = format_discord_message(status)
+        send_discord_message(DISCORD_WEBHOOK_URL, formatted_message)
 
     def on_error(self, status_code):
         print(f"There was an error: {status_code}")
